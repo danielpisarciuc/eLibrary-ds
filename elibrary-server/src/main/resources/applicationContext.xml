@@ -9,6 +9,7 @@
     <context:component-scan base-package="com.elibrary.server.controller"/>
 
     <context:property-placeholder location="classpath:elibrary-ds.properties"/>
+    <context:property-placeholder location="classpath:database-conn.properties"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -36,6 +37,11 @@
                 <prop key="use_sql_comments">true</prop>
             </props>
         </property>
+    </bean>
+
+    <bean id="libraryClient" class="com.dblibrary.client.impl.LibraryDbClientImpl">
+        <constructor-arg index="0" name="dbLibraryUrl"
+                         value="${elibrary.db.base.url}"/>
     </bean>
 
 </beans>

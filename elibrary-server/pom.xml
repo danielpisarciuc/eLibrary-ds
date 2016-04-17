@@ -21,6 +21,20 @@
 
     <dependencies>
 
+        <!--Projects dependencies-->
+        <dependency>
+            <groupId>eLibrary-db</groupId>
+            <artifactId>dbLibrary-client</artifactId>
+            <version>${elibrary.db.app.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>eLibrary-db</groupId>
+            <artifactId>dbLibrary-common</artifactId>
+            <version>${elibrary.db.app.version}</version>
+        </dependency>
+
+
         <!--Spring-->
         <dependency>
             <groupId>org.springframework</groupId>

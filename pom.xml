@@ -16,6 +16,8 @@
     <packaging>pom</packaging>
 
     <properties>
+        <elibrary.db.app.version>1.0</elibrary.db.app.version>
+
         <spring.version>4.2.4.RELEASE</spring.version>
         <jersey.version>2.22.2</jersey.version>
         <hibernate.version>4.3.6.Final</hibernate.version>
