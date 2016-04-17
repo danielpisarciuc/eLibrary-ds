@@ -1,1 +1,1 @@
-# eLibrary
+# eLibrary - data service application
