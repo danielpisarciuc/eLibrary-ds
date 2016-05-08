@@ -21,6 +21,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>elibrary-ds</groupId>
+            <artifactId>elibrary-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!--Projects dependencies-->
         <dependency>
             <groupId>eLibrary-db</groupId>
