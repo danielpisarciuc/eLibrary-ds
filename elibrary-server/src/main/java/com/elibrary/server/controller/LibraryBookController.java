@@ -20,15 +20,15 @@ public class LibraryBookController {
 
     @POST
     @Path("/create")
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response createBook(BookDto bookDto) {
         return Response.status(Response.Status.NOT_FOUND).entity(LibraryMessage.NO_BOOK_ID.getMessage()).type(MediaType.TEXT_PLAIN).build();
     }
 
     @DELETE
     @Path("/delete/{bookId}")
-    @Produces("application/json")
-    @Consumes("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response deleteBook(@PathParam("bookId") Long bookId) {
         return Response.status(Response.Status.NOT_FOUND).entity(LibraryMessage.NO_BOOK_ID.getMessage()).type(MediaType.TEXT_PLAIN).build();
 
@@ -36,8 +36,8 @@ public class LibraryBookController {
 
     @PUT
     @Path("/update/{bookId}")
-    @Produces("application/json")
-    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_XML)
     public Response updateBook(@PathParam("bookId") Long bookId, BookDto bookDto) {
         System.out.print(bookDto);
         return Response.status(Response.Status.NOT_FOUND).entity(LibraryMessage.NO_BOOK_ID.getMessage()).type(MediaType.TEXT_PLAIN).build();
@@ -45,8 +45,8 @@ public class LibraryBookController {
 
     @GET
     @Path("/fetch/{bookId}")
-    @Produces("application/json")
-    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response fetchBookById(@PathParam("bookId") Long bookId) {
 
         BookDto dto = new BookDto();
@@ -118,8 +118,8 @@ public class LibraryBookController {
 
     @GET
     @Path("/search/{searchTerm}")
-    @Produces("application/json")
-    @Consumes("application/json")
+    @Produces(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response searchBook(@PathParam("searchTerm") String searchTerm, @QueryParam("size") Long size) {
         List<BookDto> books = new ArrayList<>();
 
