@@ -1,0 +1,11 @@
+drop table BOOK;
+
+CREATE TABLE BOOK
+(
+   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   isbn varchar(100) NOT NULL,
+   title varchar(100) NOT NULL
+);
+
+CREATE UNIQUE INDEX BOOK_01 ON BOOK(id);
+ALTER TABLE BOOK ADD CONSTRAINT book_unique UNIQUE (isbn, title);

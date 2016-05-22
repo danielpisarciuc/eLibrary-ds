@@ -1,5 +1,8 @@
 package com.elibrary.common.dto;
 
+import com.elibrary.common.utils.LibraryUtil;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,8 +11,8 @@ public class BookDto {
     private Long bookId;
     private String isbn;
     private String title;
-    private List<BookAuthorDto> bookAuthors;
-    private List<BookDetailDto> bookDetails;
+    private List<BookAuthorDto> bookAuthors = new ArrayList<>();
+    private List<BookDetailDto> bookDetails = new ArrayList<>();
 
     public Long getBookId() {
         return bookId;
@@ -77,5 +80,19 @@ public class BookDto {
     @Override
     public int hashCode() {
         return Objects.hash(getBookId(), getIsbn(), getTitle(), getBookAuthors(), getBookDetails());
+    }
+
+    public boolean hasAuthors() {
+        if (bookAuthors == null && bookAuthors.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean hasDetails() {
+        if (bookDetails == null && bookDetails.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }
