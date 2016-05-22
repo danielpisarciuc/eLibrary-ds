@@ -3,7 +3,7 @@ package com.elibrary.common.dto;
 
 import java.util.Objects;
 
-public class BookAuthorDtoD {
+public class BookAuthorDto {
 
     private Long id;
     private String firstName;
@@ -45,8 +45,8 @@ public class BookAuthorDtoD {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BookAuthorDtoD)) return false;
-        BookAuthorDtoD that = (BookAuthorDtoD) o;
+        if (!(o instanceof BookAuthorDto)) return false;
+        BookAuthorDto that = (BookAuthorDto) o;
         return Objects.equals(getId(), that.getId()) &&
                 Objects.equals(getFirstName(), that.getFirstName()) &&
                 Objects.equals(getLastName(), that.getLastName());

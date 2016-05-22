@@ -3,7 +3,7 @@ package com.elibrary.common.dto;
 import java.util.Date;
 import java.util.Objects;
 
-public class BookDetailDtoD {
+public class BookDetailDto {
 
     private Long id;
     private String language;
@@ -75,8 +75,8 @@ public class BookDetailDtoD {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BookDetailDtoD)) return false;
-        BookDetailDtoD that = (BookDetailDtoD) o;
+        if (!(o instanceof BookDetailDto)) return false;
+        BookDetailDto that = (BookDetailDto) o;
         return Objects.equals(getLanguage(), that.getLanguage()) &&
                 Objects.equals(getFormat(), that.getFormat()) &&
                 Objects.equals(getSubject(), that.getSubject()) &&
