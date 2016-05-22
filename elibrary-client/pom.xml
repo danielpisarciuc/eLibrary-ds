@@ -15,6 +15,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>elibrary-ds</groupId>
+            <artifactId>elibrary-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-client</artifactId>
             <version>${jersey.version}</version>
