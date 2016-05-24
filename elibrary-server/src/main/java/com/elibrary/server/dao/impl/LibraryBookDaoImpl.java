@@ -6,7 +6,11 @@ import com.elibrary.server.dao.entity.BookDetailEntity;
 import com.elibrary.server.dao.entity.BookEntity;
 import com.elibrary.server.utils.LibraryException;
 import com.elibrary.server.utils.LibraryMessage;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +22,7 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
 
     @Override
     public void addBook(BookEntity entity) {
-        getSession().save(entity);
+        save(entity);
     }
 
     @Override
@@ -29,7 +33,7 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
             throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND.getMessage() + "bookId:" + bookId);
         }
 
-        getSession().delete(bookEntity);
+        delete(bookEntity);
     }
 
     @Override
@@ -40,7 +44,7 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
             throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND.getMessage() + "bookId:" + bookId);
         }
 
-        getSession().update(bookEntity);
+        update(bookEntity);
     }
 
     @Override
@@ -78,5 +82,27 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
         }
 
         return bookDetails;
+    }
+
+    @Override
+    public List searchBook(String searchTerm, Long size) throws LibraryException {
+        Disjunction disCriteria = Restrictions.disjunction();
+        disCriteria.add(Restrictions.like("isbn", searchTerm, MatchMode.START));
+        disCriteria.add(Restrictions.like("title", searchTerm, MatchMode.ANYWHERE).ignoreCase());
+        disCriteria.add(Restrictions.like("author.firstName", searchTerm, MatchMode.ANYWHERE).ignoreCase());
+        disCriteria.add(Restrictions.like("author.lastName", searchTerm, MatchMode.ANYWHERE).ignoreCase());
+
+        Criteria criteria = getSession().createCriteria(BookEntity.class);
+        criteria.createAlias("authorEntities", "author");
+        criteria.setMaxResults(size.intValue());
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        criteria.add(disCriteria);
+
+        List books = criteria.list();
+        if (books.isEmpty()) {
+            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND.getMessage() + "searchTerm:" + searchTerm);
+        }
+
+        return books;
     }
 }

@@ -3,6 +3,7 @@ package com.elibrary.server.service.impl;
 
 import com.elibrary.common.dto.BookDetailDto;
 import com.elibrary.common.dto.BookDto;
+import com.elibrary.common.utils.LibraryUtil;
 import com.elibrary.server.dao.LibraryBookDao;
 import com.elibrary.server.dao.entity.BookAuthorEntity;
 import com.elibrary.server.dao.entity.BookDetailEntity;
@@ -87,8 +88,18 @@ public class LibraryServiceImpl implements LibraryService {
             throw new LibraryException(LibraryMessage.NO_BOOK_ID.getMessage());
         }
 
-        List<BookAuthorEntity> authorBooks = libraryBookDao.retrieveAuthorBooks(authorName);
+        List<BookAuthorEntity> authorEntities = libraryBookDao.retrieveAuthorBooks(authorName);
 
-        return LibraryMapper.mapAuthorBooksEntityToDto(authorBooks);
+        return LibraryMapper.mapAuthorBooksEntityToDto(authorEntities);
+    }
+
+    @Override
+    public List<BookDto> searchBook(String searchTerm, Long size) throws LibraryException {
+        if (LibraryUtil.isNullOrEmpty(searchTerm) || size == null) {
+            throw new LibraryException(LibraryMessage.NO_BOOK_ID.getMessage());
+        }
+
+        List<BookEntity> bookEntities = libraryBookDao.searchBook(searchTerm, size);
+        return LibraryMapper.mapBooksEntityToDto(bookEntities);
     }
 }

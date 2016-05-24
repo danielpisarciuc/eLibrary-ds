@@ -1,7 +1,6 @@
 package com.elibrary.server.service;
 
 
-import com.elibrary.common.dto.BookAuthorDto;
 import com.elibrary.common.dto.BookDetailDto;
 import com.elibrary.common.dto.BookDto;
 import com.elibrary.server.utils.LibraryException;
@@ -54,5 +53,22 @@ public interface LibraryService {
      */
     List<BookDetailDto> fetchBookDetails(Long bookId) throws LibraryException;
 
+    /**
+     * Fetch author books based on author name
+     *
+     * @param authorName
+     * @return a list of books
+     * @throws LibraryException
+     */
     List<BookDto> fetchAuthorBooks(String authorName) throws LibraryException;
+
+    /**
+     * Search book based on ISBN/Title/Author Name
+     *
+     * @param searchTerm
+     * @param size
+     * @return a list of books
+     * @throws LibraryException
+     */
+    List<BookDto> searchBook(String searchTerm, Long size) throws LibraryException;
 }

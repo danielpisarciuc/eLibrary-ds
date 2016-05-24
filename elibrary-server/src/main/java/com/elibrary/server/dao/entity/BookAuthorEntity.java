@@ -10,7 +10,7 @@ import java.io.Serializable;
         @NamedQuery(
                 name = "authorBooks",
                 query = "select author from BookAuthorEntity author " +
-                        "left join fetch author.book where upper(author.firstName) like upper(:authorName)"
+                        "left join fetch author.book where upper(CONCAT(author.firstName, ' ', author.lastName)) = upper(:authorName)"
         ),
 })
 public class BookAuthorEntity implements Serializable {

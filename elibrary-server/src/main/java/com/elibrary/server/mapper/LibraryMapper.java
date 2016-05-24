@@ -56,19 +56,7 @@ public class LibraryMapper {
         dto.setBookId(Long.valueOf(entity.getId()));
         dto.setIsbn(entity.getIsbn());
         dto.setTitle(entity.getTitle());
-
-        List<BookAuthorDto> bookAuthors = new ArrayList<>();
-        entity.getAuthorEntities()
-                .stream()
-                .forEach(authorEntity -> {
-                    BookAuthorDto bookAuthorDto = new BookAuthorDto();
-
-                    bookAuthorDto.setFirstName(authorEntity.getFirstName());
-                    bookAuthorDto.setLastName(authorEntity.getLastName());
-                    bookAuthors.add(bookAuthorDto);
-                });
-
-        dto.setBookAuthors(bookAuthors);
+        dto.setBookAuthors(mapBookAuthors(entity));
 
         List<BookDetailDto> bookDetails = new ArrayList<>();
         entity.getDetailEntities()
@@ -111,5 +99,37 @@ public class LibraryMapper {
         });
 
         return bookDtos;
+    }
+
+    public static List<BookDto> mapBooksEntityToDto(List<BookEntity> bookEntities) {
+        List<BookDto> bookDtos = new ArrayList<>();
+        bookEntities.stream().forEach(book -> {
+            BookDto dto = new BookDto();
+            dto.setBookId(book.getId().longValue());
+            dto.setIsbn(book.getIsbn());
+            dto.setTitle(book.getTitle());
+
+            List<BookAuthorDto> mapBookAuthors = mapBookAuthors(book);
+
+            dto.setBookAuthors(mapBookAuthors);
+            bookDtos.add(dto);
+        });
+
+        return bookDtos;
+    }
+
+    private static List<BookAuthorDto> mapBookAuthors(BookEntity bookEntity) {
+        List<BookAuthorDto> bookAuthors = new ArrayList<>();
+        bookEntity.getAuthorEntities()
+                .stream()
+                .forEach(authorEntity -> {
+                    BookAuthorDto bookAuthorDto = new BookAuthorDto();
+
+                    bookAuthorDto.setFirstName(authorEntity.getFirstName());
+                    bookAuthorDto.setLastName(authorEntity.getLastName());
+                    bookAuthors.add(bookAuthorDto);
+                });
+
+        return bookAuthors;
     }
 }

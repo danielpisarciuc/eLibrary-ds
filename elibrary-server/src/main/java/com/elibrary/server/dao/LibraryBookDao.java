@@ -1,7 +1,5 @@
 package com.elibrary.server.dao;
 
-import com.elibrary.common.dto.BookDto;
-import com.elibrary.server.dao.entity.BookAuthorEntity;
 import com.elibrary.server.dao.entity.BookEntity;
 import com.elibrary.server.utils.LibraryException;
 
@@ -13,6 +11,7 @@ public interface LibraryBookDao {
      * Persist BookEntity into database
      *
      * @param bookEntity
+     * @throws LibraryException;
      */
     void addBook(BookEntity bookEntity) throws LibraryException;
 
@@ -53,11 +52,21 @@ public interface LibraryBookDao {
     List retrieveBookDetails(Long bookId) throws LibraryException;
 
     /**
-     * Retrieve author books based on authorName
+     * Retrieve author books based on authorName (firstName + lastName)
      *
      * @param authorName
      * @return a list of books
      * @throws LibraryException
      */
-    List<BookAuthorEntity> retrieveAuthorBooks(String authorName) throws LibraryException;
+    List retrieveAuthorBooks(String authorName) throws LibraryException;
+
+    /**
+     * Search books from database based on ISBN/Title/Author Name
+     *
+     * @param searchTerm
+     * @param size
+     * @return a list of books
+     * @throws LibraryException
+     */
+    List searchBook(String searchTerm, Long size) throws LibraryException;
 }

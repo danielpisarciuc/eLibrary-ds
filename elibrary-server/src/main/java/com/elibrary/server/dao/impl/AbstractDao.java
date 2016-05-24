@@ -13,11 +13,30 @@ public class AbstractDao {
         return sessionFactory.getCurrentSession();
     }
 
-    public void persist(Object entity) {
-        getSession().persist(entity);
+    /**
+     * Save entity object into database
+     *
+     * @param entity
+     */
+    protected void save(Object entity) {
+        getSession().save(entity);
     }
 
-    public void delete(Object entity) {
+    /**
+     * Delete entity object from database
+     *
+     * @param entity
+     */
+    protected void delete(Object entity) {
         getSession().delete(entity);
+    }
+
+    /**
+     * Update entity object into database
+     *
+     * @param entity
+     */
+    protected void update(Object entity) {
+        getSession().update(entity);
     }
 }
