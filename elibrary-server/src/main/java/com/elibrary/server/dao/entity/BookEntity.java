@@ -22,7 +22,7 @@ public class BookEntity implements Serializable {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "book")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
     private Set<BookAuthorEntity> authorEntities = new HashSet<>();
 
