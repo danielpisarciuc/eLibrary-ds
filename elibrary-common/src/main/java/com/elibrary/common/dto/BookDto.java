@@ -1,7 +1,5 @@
 package com.elibrary.common.dto;
 
-import com.elibrary.common.utils.LibraryUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
