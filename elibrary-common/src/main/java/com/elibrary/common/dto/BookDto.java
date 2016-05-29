@@ -83,16 +83,10 @@ public class BookDto {
     }
 
     public boolean hasAuthors() {
-        if (bookAuthors == null && bookAuthors.isEmpty()) {
-            return false;
-        }
-        return true;
+        return bookAuthors != null && !bookAuthors.isEmpty();
     }
 
     public boolean hasDetails() {
-        if (bookDetails == null && bookDetails.isEmpty()) {
-            return false;
-        }
-        return true;
+        return bookDetails != null && !bookDetails.isEmpty();
     }
 }

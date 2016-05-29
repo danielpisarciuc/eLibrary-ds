@@ -9,10 +9,9 @@ import com.elibrary.common.utils.LibraryUtil;
 public class LibraryValidation {
 
     public static boolean isBookValid(BookDto bookDto) {
-        if (bookDto == null || LibraryUtil.isNullOrEmpty(bookDto.getIsbn() , bookDto.getTitle()) || !bookDto.hasAuthors() || !bookDto.hasDetails()){
+        if(bookDto == null){
             return false;
         }
-
-        return true;
+        return !LibraryUtil.isNullOrEmpty(bookDto.getIsbn() , bookDto.getTitle()) && bookDto.hasAuthors() && bookDto.hasDetails();
     }
 }

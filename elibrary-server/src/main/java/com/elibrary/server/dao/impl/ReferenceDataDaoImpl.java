@@ -1,5 +1,6 @@
 package com.elibrary.server.dao.impl;
 
+import com.elibrary.common.utils.LibraryUtil;
 import com.elibrary.server.dao.ReferenceDataDao;
 import com.elibrary.server.dao.entity.ReferenceDataEntity;
 import com.elibrary.server.utils.LibraryException;
@@ -19,13 +20,16 @@ public class ReferenceDataDaoImpl extends AbstractDao implements ReferenceDataDa
 
     @Override
     public List retrieveReferenceData(String type) throws LibraryException {
+        if (LibraryUtil.isNullOrEmpty(type)) {
+            throw new LibraryException(LibraryMessage.NO_REFERENCE_DATA_TYPE);
+        }
         Criteria criteria = getSession().createCriteria(ReferenceDataEntity.class);
         criteria.add(Restrictions.eq("type", type));
 
         List result = criteria.list();
         if (result.isEmpty()) {
             LOGGER.error(LibraryMessage.NO_REFERENCE_DATA.getMessage() + "->" + type);
-            throw new LibraryException(LibraryMessage.NO_REFERENCE_DATA.getMessage());
+            throw new LibraryException(LibraryMessage.NO_REFERENCE_DATA);
         }
 
         return result;

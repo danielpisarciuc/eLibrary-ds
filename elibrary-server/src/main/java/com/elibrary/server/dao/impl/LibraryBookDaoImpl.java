@@ -30,7 +30,7 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
         BookEntity bookEntity = (BookEntity) getSession().get(BookEntity.class, bookId.intValue());
 
         if (bookEntity == null) {
-            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND.getMessage() + "bookId:" + bookId);
+            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND);
         }
 
         delete(bookEntity);
@@ -41,7 +41,7 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
         BookEntity entity = (BookEntity) getSession().get(BookEntity.class, bookId.intValue());
 
         if (entity == null && entity.getId().equals(bookId.intValue())) {
-            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND.getMessage() + "bookId:" + bookId);
+            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND);
         }
 
         update(bookEntity);
@@ -51,8 +51,10 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
     public BookEntity retrieveBookById(Long bookId) throws LibraryException {
         BookEntity entity = (BookEntity) getSession().get(BookEntity.class, bookId.intValue());
 
-        if (entity == null && entity.getId().equals(bookId.intValue())) {
-            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND.getMessage() + "bookId:" + bookId);
+        if (entity == null) {
+            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND);
+        }else if (entity.getId() == null){
+            throw new LibraryException(LibraryMessage.NO_BOOK_ENTITY_ID);
         }
 
         return entity;
@@ -65,7 +67,7 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
 
         List bookDetails = namedQuery.list();
         if (bookDetails.isEmpty()) {
-            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND.getMessage() + "bookId:" + bookId);
+            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND);
         }
 
         return bookDetails;
@@ -78,7 +80,7 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
 
         List bookDetails = namedQuery.list();
         if (bookDetails.isEmpty()) {
-            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND.getMessage() + "authorName:" + authorName);
+            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND);
         }
 
         return bookDetails;
@@ -100,7 +102,7 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
 
         List books = criteria.list();
         if (books.isEmpty()) {
-            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND.getMessage() + "searchTerm:" + searchTerm);
+            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND);
         }
 
         return books;

@@ -13,7 +13,6 @@ import com.elibrary.server.service.LibraryService;
 import com.elibrary.server.utils.LibraryException;
 import com.elibrary.server.utils.LibraryMessage;
 import com.elibrary.server.utils.LibraryValidation;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +23,13 @@ import java.util.List;
 @Service("libraryService")
 public class LibraryServiceImpl implements LibraryService {
 
-    private final Logger LOGGER = Logger.getLogger(LibraryServiceImpl.class);
-
     @Autowired
     private LibraryBookDao libraryBookDao;
 
     @Override
     public void createBook(BookDto bookDto) throws LibraryException {
         if (!LibraryValidation.isBookValid(bookDto)) {
-            throw new LibraryException(LibraryMessage.INVALID_BOOK.getMessage());
+            throw new LibraryException(LibraryMessage.INVALID_BOOK);
         }
 
         libraryBookDao.addBook(LibraryMapper.mapBookDtoToEntity(bookDto));
@@ -42,7 +39,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public void deleteBook(Long bookId) throws LibraryException {
         if (bookId == null) {
-            throw new LibraryException(LibraryMessage.NO_BOOK_ID.getMessage());
+            throw new LibraryException(LibraryMessage.NO_BOOK_ID);
         }
 
         libraryBookDao.deleteBook(bookId);
@@ -52,9 +49,9 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public void updateBook(Long bookId, BookDto bookDto) throws LibraryException {
         if (bookId == null) {
-            throw new LibraryException(LibraryMessage.NO_BOOK_ID.getMessage());
+            throw new LibraryException(LibraryMessage.NO_BOOK_ID);
         } else if (!LibraryValidation.isBookValid(bookDto)) {
-            throw new LibraryException(LibraryMessage.INVALID_BOOK.getMessage());
+            throw new LibraryException(LibraryMessage.INVALID_BOOK);
         }
 
         libraryBookDao.updateBook(bookId, LibraryMapper.mapBookDtoToEntity(bookDto));
@@ -63,7 +60,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public BookDto fetchBookById(Long bookId) throws LibraryException {
         if (bookId == null) {
-            throw new LibraryException(LibraryMessage.NO_BOOK_ID.getMessage());
+            throw new LibraryException(LibraryMessage.NO_BOOK_ID);
         }
 
         BookEntity entity = libraryBookDao.retrieveBookById(bookId);
@@ -74,7 +71,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public List<BookDetailDto> fetchBookDetails(Long bookId) throws LibraryException {
         if (bookId == null) {
-            throw new LibraryException(LibraryMessage.NO_BOOK_ID.getMessage());
+            throw new LibraryException(LibraryMessage.NO_BOOK_ID);
         }
 
         List<BookDetailEntity> detailEntities = libraryBookDao.retrieveBookDetails(bookId);
@@ -84,8 +81,9 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public List<BookDto> fetchAuthorBooks(String authorName) throws LibraryException {
+        //TODO IP use isNullOrEmpty
         if (authorName == null) {
-            throw new LibraryException(LibraryMessage.NO_AUTHOR.getMessage());
+            throw new LibraryException(LibraryMessage.NO_AUTHOR);
         }
 
         List<BookAuthorEntity> authorEntities = libraryBookDao.retrieveAuthorBooks(authorName);
@@ -96,7 +94,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public List<BookDto> searchBook(String searchTerm, Long size) throws LibraryException {
         if (LibraryUtil.isNullOrEmpty(searchTerm)) {
-            throw new LibraryException(LibraryMessage.NO_SEARCH_TERM.getMessage());
+            throw new LibraryException(LibraryMessage.NO_SEARCH_TERM);
         }
 
         List<BookEntity> bookEntities = libraryBookDao.searchBook(searchTerm, size);
