@@ -97,7 +97,7 @@ public class LibraryBookController {
     @Path("/search/{searchTerm}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response searchBook(@PathParam("searchTerm") String searchTerm, @QueryParam("size") Long size) {
+    public Response searchBook(@PathParam("searchTerm") String searchTerm, @QueryParam("size") @DefaultValue("5") Long size) {
         try {
             return Response.ok().entity(libraryService.searchBook(searchTerm, size)).build();
         } catch (LibraryException exception) {

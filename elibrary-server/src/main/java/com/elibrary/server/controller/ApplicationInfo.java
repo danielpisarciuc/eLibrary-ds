@@ -17,7 +17,7 @@ public class ApplicationInfo {
     @GET
     @Path("/info")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response verifyRESTService() {
+    public Response applicationInfo() {
         return Response.status(200).entity(LibraryMessage.APPLICATION_INFO.getMessage()).build();
     }
 }

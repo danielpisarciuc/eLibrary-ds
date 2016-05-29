@@ -85,7 +85,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public List<BookDto> fetchAuthorBooks(String authorName) throws LibraryException {
         if (authorName == null) {
-            throw new LibraryException(LibraryMessage.NO_BOOK_ID.getMessage());
+            throw new LibraryException(LibraryMessage.NO_AUTHOR.getMessage());
         }
 
         List<BookAuthorEntity> authorEntities = libraryBookDao.retrieveAuthorBooks(authorName);
@@ -95,8 +95,8 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public List<BookDto> searchBook(String searchTerm, Long size) throws LibraryException {
-        if (LibraryUtil.isNullOrEmpty(searchTerm) || size == null) {
-            throw new LibraryException(LibraryMessage.NO_BOOK_ID.getMessage());
+        if (LibraryUtil.isNullOrEmpty(searchTerm)) {
+            throw new LibraryException(LibraryMessage.NO_SEARCH_TERM.getMessage());
         }
 
         List<BookEntity> bookEntities = libraryBookDao.searchBook(searchTerm, size);

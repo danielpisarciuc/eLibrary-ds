@@ -7,6 +7,8 @@ public enum LibraryMessage {
     NO_REFERENCE_DATA("Reference data not found"),
     NO_REFERENCE_DATA_TYPE("Provide the reference data type"),
     NO_BOOK_ID("Please provide the bookId value"),
+    NO_AUTHOR("Please provide the author name value"),
+    NO_SEARCH_TERM("Please provide the search value"),
     NO_RECORDS_FOUND("No record/s found into database"),
     INVALID_BOOK("Please provide book isbn, title, author/s, detail/s");
 
