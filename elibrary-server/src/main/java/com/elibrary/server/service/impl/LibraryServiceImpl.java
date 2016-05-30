@@ -81,8 +81,7 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public List<BookDto> fetchAuthorBooks(String authorName) throws LibraryException {
-        //TODO IP use isNullOrEmpty
-        if (authorName == null) {
+        if (LibraryUtil.isNullOrEmpty(authorName)) {
             throw new LibraryException(LibraryMessage.NO_AUTHOR);
         }
 

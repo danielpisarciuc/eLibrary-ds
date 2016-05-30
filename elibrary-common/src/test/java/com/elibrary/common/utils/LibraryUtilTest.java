@@ -9,16 +9,14 @@ public class LibraryUtilTest {
 
     @Test
     public void testIsNullOrEmpty() {
+        assertTrue(LibraryUtil.isNullOrEmpty());
         assertTrue(LibraryUtil.isNullOrEmpty("", null));
         assertTrue(LibraryUtil.isNullOrEmpty("", ""));
-
         assertTrue(LibraryUtil.isNullOrEmpty("1", ""));
         assertTrue(LibraryUtil.isNullOrEmpty("", "2"));
+        assertTrue(LibraryUtil.isNullOrEmpty(null));
 
         assertFalse(LibraryUtil.isNullOrEmpty("1", "2"));
         assertFalse(LibraryUtil.isNullOrEmpty("null"));
-
-//        assertTrue(LibraryUtil.isNullOrEmpty(null));
-
     }
 }
