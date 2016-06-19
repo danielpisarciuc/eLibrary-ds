@@ -69,4 +69,6 @@ public interface LibraryBookDao {
      * @throws LibraryException
      */
     List searchBook(String searchTerm, Long size) throws LibraryException;
+
+    List<BookEntity> retrieveAllBooks() throws LibraryException;
 }

@@ -69,6 +69,12 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
+    public List<BookDto> fetchAllBooks() throws LibraryException {
+        List<BookEntity> bookEntities = libraryBookDao.retrieveAllBooks();
+        return LibraryMapper.mapBooksEntityToDto(bookEntities);
+    }
+
+    @Override
     public List<BookDetailDto> fetchBookDetails(Long bookId) throws LibraryException {
         if (bookId == null) {
             throw new LibraryException(LibraryMessage.NO_BOOK_ID);

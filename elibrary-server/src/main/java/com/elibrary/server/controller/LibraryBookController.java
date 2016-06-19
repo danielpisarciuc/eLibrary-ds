@@ -70,6 +70,18 @@ public class LibraryBookController {
     }
 
     @GET
+    @Path("/fetch/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response fetchAllBooks() {
+        try {
+            return Response.ok().entity(libraryService.fetchAllBooks()).build();
+        } catch (LibraryException exception) {
+            return Response.status(Response.Status.NO_CONTENT).entity(exception.getMessage()).type(MediaType.TEXT_PLAIN).build();
+        }
+    }
+
+    @GET
     @Path("/details/{bookId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

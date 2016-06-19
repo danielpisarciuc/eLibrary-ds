@@ -53,7 +53,7 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
 
         if (entity == null) {
             throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND);
-        }else if (entity.getId() == null){
+        } else if (entity.getId() == null) {
             throw new LibraryException(LibraryMessage.NO_BOOK_ENTITY_ID);
         }
 
@@ -100,6 +100,17 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
         criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         criteria.add(disCriteria);
 
+        List books = criteria.list();
+        if (books.isEmpty()) {
+            throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND);
+        }
+
+        return books;
+    }
+
+    @Override
+    public List<BookEntity> retrieveAllBooks() throws LibraryException {
+        Criteria criteria = getSession().createCriteria(BookEntity.class);
         List books = criteria.list();
         if (books.isEmpty()) {
             throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND);

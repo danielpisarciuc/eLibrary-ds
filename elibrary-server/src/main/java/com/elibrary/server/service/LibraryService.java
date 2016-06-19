@@ -71,4 +71,6 @@ public interface LibraryService {
      * @throws LibraryException
      */
     List<BookDto> searchBook(String searchTerm, Long size) throws LibraryException;
+
+    List<BookDto> fetchAllBooks() throws LibraryException;;
 }
