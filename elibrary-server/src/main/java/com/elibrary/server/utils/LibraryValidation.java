@@ -13,19 +13,24 @@ public class LibraryValidation {
     public static boolean isBookValid(BookDto bookDto) {
         if (bookDto == null) {
             return false;
-        } else if (bookDto.hasAuthors()) {
-            for (BookAuthorDto dto : bookDto.getBookAuthors()) {
-                if (LibraryUtil.isNullOrEmpty(dto.getFirstName(), dto.getLastName())) {
-                    return false;
-                }
-            }
-        } else if (bookDto.hasDetails()) {
-            for (BookDetailDto dto : bookDto.getBookDetails()) {
-                if (LibraryUtil.isNullOrEmpty(dto.getLanguage(), dto.getSubject(), dto.getFormat(), dto.getDescription()) || dto.getPublicationDate() == null) {
-                    return false;
-                }
+        }
+
+        if (!bookDto.hasAuthors() && !bookDto.hasDetails()) {
+            return false;
+        }
+
+        for (BookAuthorDto dto : bookDto.getBookAuthors()) {
+            if (LibraryUtil.isNullOrEmpty(dto.getFirstName(), dto.getLastName())) {
+                return false;
             }
         }
+
+        for (BookDetailDto dto : bookDto.getBookDetails()) {
+            if (LibraryUtil.isNullOrEmpty(dto.getLanguage(), dto.getSubject(), dto.getFormat(), dto.getDescription()) || dto.getPublicationDate() == null) {
+                return false;
+            }
+        }
+
 
         return !LibraryUtil.isNullOrEmpty(bookDto.getIsbn(), bookDto.getTitle());
     }
