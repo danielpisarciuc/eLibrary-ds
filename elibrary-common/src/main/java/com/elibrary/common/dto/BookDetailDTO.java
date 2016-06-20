@@ -1,8 +1,10 @@
 package com.elibrary.common.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.Objects;
 
+@XmlRootElement
 public class BookDetailDto {
 
     private Long id;

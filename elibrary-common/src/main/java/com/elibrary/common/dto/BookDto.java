@@ -1,11 +1,14 @@
 package com.elibrary.common.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @XmlRootElement
+@JsonSerialize
 public class BookDto {
 
     private Long bookId;
