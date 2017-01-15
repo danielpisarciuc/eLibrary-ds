@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="641.0">com.elibrary.common.utils.LibraryUtil</node>
+    <node x="397.0" y="33.0">com.elibrary.common.dto.Author</node>
+    <node x="0.0" y="0.0">com.elibrary.common.dto.BookDetail</node>
+    <node x="172.5" y="301.0">com.elibrary.common.dto.Book</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.elibrary.common.dto.Book" target="com.elibrary.common.dto.Author">
+      <point x="97.25" y="-147.5" />
+      <point x="464.25" y="276.0" />
+      <point x="545.5" y="276.0" />
+      <point x="0.0" y="92.5" />
+    </edge>
+    <edge source="com.elibrary.common.dto.Book" target="com.elibrary.common.dto.BookDetail">
+      <point x="-97.25" y="-147.5" />
+      <point x="269.75" y="276.0" />
+      <point x="188.5" y="276.0" />
+      <point x="0.0" y="125.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6788218793828892" x="347.64566115702473" y="306.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="802.5" y="1027.0">com.elibrary.server.utils.LibraryException</node>
+    <node x="92.25" y="939.0">com.elibrary.server.service.LibraryService</node>
+    <node x="88.90972222222226" y="688.0">com.elibrary.server.mapper.LibraryMapper</node>
+    <node x="848.0" y="1446.0">com.elibrary.server.utils.LibraryMessage</node>
+    <node x="362.0" y="1195.0">com.elibrary.server.service.impl.LibraryServiceImpl</node>
+    <node x="365.0" y="1446.0">com.elibrary.server.utils.LibraryValidation</node>
+    <node x="0.0" y="1446.0">com.elibrary.server.dao.entity.ReferenceDataEntity</node>
+    <node x="1050.0" y="1272.0">com.elibrary.server.dao.impl.ReferenceDataDaoImpl</node>
+    <node x="148.3333333333333" y="388.0">com.elibrary.server.dao.entity.BookEntity</node>
+    <node x="0.0" y="66.0">com.elibrary.server.dao.entity.AuthorEntity</node>
+    <node x="436.25" y="939.0">com.elibrary.server.dao.LibraryBookDao</node>
+    <node x="999.25" y="983.0">com.elibrary.server.dao.impl.AbstractDao</node>
+    <node x="1252.5" y="1016.0">com.elibrary.server.dao.ReferenceDataDao</node>
+    <node x="0.0" y="1195.0">com.elibrary.server.controller.LibraryBookController</node>
+    <node x="607.0" y="1446.0">com.elibrary.server.controller.ApplicationInfo</node>
+    <node x="290.0" y="0.0">com.elibrary.server.dao.entity.BookDetailEntity</node>
+    <node x="697.0" y="1195.0">com.elibrary.server.dao.impl.LibraryBookDaoImpl</node>
+    <node x="1300.0" y="1272.0">com.elibrary.server.controller.ReferenceDataController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.elibrary.server.dao.impl.LibraryBookDaoImpl" target="com.elibrary.server.utils.LibraryException">
+      <point x="0.0" y="-103.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.elibrary.server.controller.LibraryBookController" target="com.elibrary.server.service.LibraryService">
+      <point x="0.0" y="-103.0" />
+      <point x="-78.75" y="103.0" />
+    </edge>
+    <edge source="com.elibrary.server.service.impl.LibraryServiceImpl" target="com.elibrary.server.dao.LibraryBookDao">
+      <point x="0.0" y="-103.0" />
+      <point x="-83.25" y="103.0" />
+    </edge>
+    <edge source="com.elibrary.server.mapper.LibraryMapper" target="com.elibrary.server.dao.entity.BookDetailEntity">
+      <point x="134.33333333333331" y="-103.0" />
+      <point x="424.74305555555554" y="663.0" />
+      <point x="485.8819444444444" y="663.0" />
+      <point x="485.8819444444444" y="368.0" />
+      <point x="615.0" y="368.0" />
+      <point x="130.0" y="169.0" />
+    </edge>
+    <edge source="com.elibrary.server.dao.impl.LibraryBookDaoImpl" target="com.elibrary.server.dao.LibraryBookDao">
+      <point x="-111.0" y="-103.0" />
+      <point x="752.5" y="1165.0" />
+      <point x="686.0" y="1165.0" />
+      <point x="83.25" y="103.0" />
+    </edge>
+    <edge source="com.elibrary.server.dao.entity.BookEntity" target="com.elibrary.server.dao.entity.BookDetailEntity">
+      <point x="38.75000000000003" y="-125.0" />
+      <point x="342.0833333333333" y="368.0" />
+      <point x="355.0" y="368.0" />
+      <point x="-130.0" y="169.0" />
+    </edge>
+    <edge source="com.elibrary.server.dao.impl.LibraryBookDaoImpl" target="com.elibrary.server.dao.impl.AbstractDao">
+      <point x="111.0" y="-103.0" />
+      <point x="974.5" y="1175.0" />
+      <point x="1054.5" y="1175.0" />
+      <point x="-55.25" y="59.0" />
+    </edge>
+    <edge source="com.elibrary.server.service.impl.LibraryServiceImpl" target="com.elibrary.server.utils.LibraryException">
+      <point x="105.0" y="-103.0" />
+      <point x="624.5" y="1175.0" />
+      <point x="822.8333333333333" y="1175.0" />
+      <point x="-40.666666666666686" y="15.0" />
+    </edge>
+    <edge source="com.elibrary.server.mapper.LibraryMapper" target="com.elibrary.server.dao.entity.AuthorEntity">
+      <point x="-134.3333333333334" y="-103.0" />
+      <point x="156.07638888888886" y="663.0" />
+      <point x="107.45138888888886" y="663.0" />
+      <point x="107.45138888888886" y="368.0" />
+      <point x="45.0" y="368.0" />
+      <point x="-90.0" y="103.0" />
+    </edge>
+    <edge source="com.elibrary.server.dao.impl.ReferenceDataDaoImpl" target="com.elibrary.server.utils.LibraryException">
+      <point x="-76.66666666666669" y="-26.0" />
+      <point x="1088.3333333333333" y="1165.0" />
+      <point x="904.1666666666666" y="1165.0" />
+      <point x="40.66666666666663" y="15.0" />
+    </edge>
+    <edge source="com.elibrary.server.dao.impl.ReferenceDataDaoImpl" target="com.elibrary.server.dao.ReferenceDataDao">
+      <point x="76.66666666666663" y="-26.0" />
+      <point x="1241.6666666666665" y="1175.0" />
+      <point x="1310.0" y="1175.0" />
+      <point x="-57.5" y="26.0" />
+    </edge>
+    <edge source="com.elibrary.server.dao.entity.BookDetailEntity" target="com.elibrary.server.dao.entity.BookEntity">
+      <point x="0.0" y="169.0" />
+      <point x="485.0" y="358.0" />
+      <point x="419.5833333333333" y="358.0" />
+      <point x="116.25000000000003" y="-125.0" />
+    </edge>
+    <edge source="com.elibrary.server.service.impl.LibraryServiceImpl" target="com.elibrary.server.service.LibraryService">
+      <point x="-105.0" y="-103.0" />
+      <point x="414.5" y="1175.0" />
+      <point x="328.5" y="1175.0" />
+      <point x="78.75" y="103.0" />
+    </edge>
+    <edge source="com.elibrary.server.controller.ReferenceDataController" target="com.elibrary.server.dao.ReferenceDataDao">
+      <point x="0.0" y="-26.0" />
+      <point x="57.5" y="26.0" />
+    </edge>
+    <edge source="com.elibrary.server.dao.impl.ReferenceDataDaoImpl" target="com.elibrary.server.dao.impl.AbstractDao">
+      <point x="0.0" y="-26.0" />
+      <point x="55.25" y="59.0" />
+    </edge>
+    <edge source="com.elibrary.server.dao.entity.BookEntity" target="com.elibrary.server.dao.entity.AuthorEntity">
+      <point x="-116.24999999999997" y="-125.0" />
+      <point x="187.08333333333331" y="368.0" />
+      <point x="135.0" y="368.0" />
+      <point x="0.0" y="103.0" />
+    </edge>
+    <edge source="com.elibrary.server.mapper.LibraryMapper" target="com.elibrary.server.dao.entity.BookEntity">
+      <point x="-5.6843418860808015E-14" y="-103.0" />
+      <point x="290.4097222222222" y="663.0" />
+      <point x="303.33333333333326" y="663.0" />
+      <point x="0.0" y="125.0" />
+    </edge>
+    <edge source="com.elibrary.server.dao.entity.AuthorEntity" target="com.elibrary.server.dao.entity.BookEntity">
+      <point x="90.0" y="103.0" />
+      <point x="225.0" y="368.0" />
+      <point x="264.5833333333333" y="368.0" />
+      <point x="-38.74999999999997" y="-125.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="417.5" y="1092.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
