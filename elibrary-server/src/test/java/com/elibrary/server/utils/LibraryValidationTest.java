@@ -1,15 +1,16 @@
 package com.elibrary.server.utils;
 
-import com.elibrary.common.dto.BookAuthorDto;
-import com.elibrary.common.dto.BookDetailDto;
-import com.elibrary.common.dto.BookDto;
-import org.junit.Ignore;
+import com.elibrary.common.dto.Author;
+import com.elibrary.common.dto.Book;
+import com.elibrary.common.dto.BookDetail;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class LibraryValidationTest {
 
@@ -20,11 +21,11 @@ public class LibraryValidationTest {
 
     @Test
     public void testIsBookValidFalseNoAuthor() throws Exception {
-        BookDto book = new BookDto();
+        Book book = new Book();
         book.setIsbn("ISBN");
         book.setTitle("Title");
-        List<BookDetailDto> details = new ArrayList<>();
-        details.add(new BookDetailDto());
+        List<BookDetail> details = new ArrayList<>();
+        details.add(new BookDetail());
         book.setBookDetails(details);
 
         assertFalse(LibraryValidation.isBookValid(book));
@@ -32,11 +33,11 @@ public class LibraryValidationTest {
 
     @Test
     public void testIsBookValidFalseNoDetails() throws Exception {
-        BookDto book = new BookDto();
+        Book book = new Book();
         book.setIsbn("ISBN");
         book.setTitle("Title");
-        List<BookAuthorDto> authors = new ArrayList<>();
-        authors.add(new BookAuthorDto());
+        List<Author> authors = new ArrayList<>();
+        authors.add(new Author());
         book.setBookAuthors(authors);
 
         assertFalse(LibraryValidation.isBookValid(book));
@@ -44,16 +45,33 @@ public class LibraryValidationTest {
 
     @Test
     public void testIsBookValidTrue() throws Exception {
-        BookDto book = new BookDto();
-        book.setIsbn("ISBN");
-        book.setTitle("Title");
-        List<BookAuthorDto> authors = new ArrayList<>();
-        authors.add(new BookAuthorDto());
-        List<BookDetailDto> details = new ArrayList<>();
-        details.add(new BookDetailDto());
-        book.setBookAuthors(authors);
-        book.setBookDetails(details);
+        List<Author> authors = new ArrayList<>();
+        authors.add(
+                Author.builder()
+                        .lastName("Mitrut")
+                        .firstName("Ispirescu")
+                        .build());
 
-        assertTrue(LibraryValidation.isBookValid(book));
+        List<BookDetail> details = new ArrayList<>();
+        details.add(
+                BookDetail.builder()
+                        .format("PDF")
+                        .description("No description")
+                        .subject("No subject")
+                        .language("EN")
+                        .publicationDate(new Date())
+                        .build());
+
+        boolean bookValid = LibraryValidation.isBookValid(
+                Book.builder()
+                        .id(11L)
+                        .isbn("ISBN")
+                        .title("eLibrary")
+                        .bookAuthors(authors)
+                        .bookDetails(details)
+                        .build());
+
+
+        assertTrue(bookValid);
     }
 }

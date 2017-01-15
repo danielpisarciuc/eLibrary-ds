@@ -1,6 +1,6 @@
 package com.elibrary.client;
 
-import com.elibrary.common.dto.BookDto;
+import com.elibrary.common.dto.Book;
 
 import javax.ws.rs.core.Response;
 
@@ -26,7 +26,7 @@ public interface LibraryClient {
      * @param bookDto
      * @return if success return status 201 otherwise 304
      */
-    Response createBook(BookDto bookDto);
+    Response createBook(Book bookDto);
 
 
     /**
@@ -44,7 +44,7 @@ public interface LibraryClient {
      * @param bookDto
      * @return status 201 otherwise 304
      */
-    Response updateBook(Long bookId, BookDto bookDto);
+    Response updateBook(Long bookId, Book bookDto);
 
     /**
      * Fetch book information's based on bookId

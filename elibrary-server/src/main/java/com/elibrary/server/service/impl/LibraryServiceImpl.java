@@ -1,11 +1,11 @@
 package com.elibrary.server.service.impl;
 
 
-import com.elibrary.common.dto.BookDetailDto;
-import com.elibrary.common.dto.BookDto;
+import com.elibrary.common.dto.BookDetail;
+import com.elibrary.common.dto.Book;
 import com.elibrary.common.utils.LibraryUtil;
 import com.elibrary.server.dao.LibraryBookDao;
-import com.elibrary.server.dao.entity.BookAuthorEntity;
+import com.elibrary.server.dao.entity.AuthorEntity;
 import com.elibrary.server.dao.entity.BookDetailEntity;
 import com.elibrary.server.dao.entity.BookEntity;
 import com.elibrary.server.mapper.LibraryMapper;
@@ -27,7 +27,7 @@ public class LibraryServiceImpl implements LibraryService {
     private LibraryBookDao libraryBookDao;
 
     @Override
-    public void createBook(BookDto bookDto) throws LibraryException {
+    public void createBook(Book bookDto) throws LibraryException {
         if (!LibraryValidation.isBookValid(bookDto)) {
             throw new LibraryException(LibraryMessage.INVALID_BOOK);
         }
@@ -47,7 +47,7 @@ public class LibraryServiceImpl implements LibraryService {
 
 
     @Override
-    public void updateBook(Long bookId, BookDto bookDto) throws LibraryException {
+    public void updateBook(Long bookId, Book bookDto) throws LibraryException {
         if (bookId == null) {
             throw new LibraryException(LibraryMessage.NO_BOOK_ID);
         } else if (!LibraryValidation.isBookValid(bookDto)) {
@@ -58,7 +58,7 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public BookDto fetchBookById(Long bookId) throws LibraryException {
+    public Book fetchBookById(Long bookId) throws LibraryException {
         if (bookId == null) {
             throw new LibraryException(LibraryMessage.NO_BOOK_ID);
         }
@@ -69,13 +69,13 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public List<BookDto> fetchAllBooks() throws LibraryException {
+    public List<Book> fetchAllBooks() throws LibraryException {
         List<BookEntity> bookEntities = libraryBookDao.retrieveAllBooks();
         return LibraryMapper.mapBooksEntityToDto(bookEntities);
     }
 
     @Override
-    public List<BookDetailDto> fetchBookDetails(Long bookId) throws LibraryException {
+    public List<BookDetail> fetchBookDetails(Long bookId) throws LibraryException {
         if (bookId == null) {
             throw new LibraryException(LibraryMessage.NO_BOOK_ID);
         }
@@ -86,18 +86,18 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public List<BookDto> fetchAuthorBooks(String authorName) throws LibraryException {
+    public List<Book> fetchAuthorBooks(String authorName) throws LibraryException {
         if (LibraryUtil.isNullOrEmpty(authorName)) {
             throw new LibraryException(LibraryMessage.NO_AUTHOR);
         }
 
-        List<BookAuthorEntity> authorEntities = libraryBookDao.retrieveAuthorBooks(authorName);
+        List<AuthorEntity> authorEntities = libraryBookDao.retrieveAuthorBooks(authorName);
 
         return LibraryMapper.mapAuthorBooksEntityToDto(authorEntities);
     }
 
     @Override
-    public List<BookDto> searchBook(String searchTerm, Long size) throws LibraryException {
+    public List<Book> searchBook(String searchTerm, Long size) throws LibraryException {
         if (LibraryUtil.isNullOrEmpty(searchTerm)) {
             throw new LibraryException(LibraryMessage.NO_SEARCH_TERM);
         }

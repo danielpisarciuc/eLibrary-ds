@@ -12,12 +12,6 @@
     <artifactId>elibrary-server</artifactId>
     <packaging>war</packaging>
 
-
-    <!--<properties>-->
-    <!--<jersey.config.server.provider.packages>com.elibrary.config.binder;com.elibrary.common.rest;</jersey.config.server.provider.packages>-->
-    <!--<jersey.config.server.provider.classnames>org.glassfish.jersey.filter.LoggingFilter</jersey.config.server.provider.classnames>-->
-    <!--</properties>-->
-
     <dependencyManagement>
         <dependencies>
             <!--Spring-->
@@ -171,6 +165,15 @@
             <version>2.0.43-beta</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
     </dependencies>
 
     <!--TOMCAT SERVER SETUP-->
@@ -183,14 +186,6 @@
                 <configuration>
                     <port>9091</port>
                     <path>/</path>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>

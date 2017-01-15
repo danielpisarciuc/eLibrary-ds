@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 @XmlRootElement
 @JsonSerialize
-public class BookDto {
+public class Book implements Serializable {
 
-    @NonNull
-    private Long bookId;
+    private Long id;
 
     @NonNull
     private String isbn;
@@ -24,8 +24,8 @@ public class BookDto {
     @NonNull
     private String title;
 
-    private List<BookAuthorDto> bookAuthors = new ArrayList<>();
-    private List<BookDetailDto> bookDetails = new ArrayList<>();
+    private List<Author> bookAuthors = new ArrayList<>();
+    private List<BookDetail> bookDetails = new ArrayList<>();
 
     public boolean hasAuthors() {
         return bookAuthors != null && !bookAuthors.isEmpty();

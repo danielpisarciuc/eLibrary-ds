@@ -1,13 +1,14 @@
 package com.elibrary.server.mapper;
 
-import com.elibrary.common.dto.BookDetailDto;
-import com.elibrary.common.dto.BookDto;
-import com.elibrary.server.dao.entity.BookAuthorEntity;
+import com.elibrary.common.dto.BookDetail;
+import com.elibrary.common.dto.Book;
+import com.elibrary.server.dao.entity.AuthorEntity;
 import com.elibrary.server.dao.entity.BookDetailEntity;
 import com.elibrary.server.dao.entity.BookEntity;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class LibraryMapperTest {
 
     @Test
     public void testMapBookDtoToEntity() throws Exception {
-        BookDto dto = new BookDto();
+        Book dto = new Book();
         dto.setIsbn("Isbn");
         dto.setTitle("Title");
         dto.setBookDetails(new ArrayList<>());
@@ -38,9 +39,9 @@ public class LibraryMapperTest {
         entity.setDetailEntities(new HashSet<>());
         entity.setAuthorEntities(new HashSet<>());
 
-        BookDto dto = LibraryMapper.mapBookEntityToDto(entity);
+        Book dto = LibraryMapper.mapBookEntityToDto(entity);
 
-        assertEquals(entity.getId().toString(), dto.getBookId().toString());
+        assertEquals(entity.getId().toString(), dto.getId().toString());
         assertEquals(entity.getIsbn(), dto.getIsbn());
         assertEquals(entity.getTitle(), dto.getTitle());
     }
@@ -51,8 +52,11 @@ public class LibraryMapperTest {
         BookDetailEntity bookDetail = new BookDetailEntity();
         bookDetail.setFormat("format");
         bookDetail.setLanguage("language");
+        bookDetail.setPublicationDate(new Date());
+        bookDetail.setDescription("No description");
+        bookDetail.setSubject("No subject");
         entity.add(bookDetail);
-        List<BookDetailDto> detailDtos = LibraryMapper.mapBookDetailsEntityToDto(entity);
+        List<BookDetail> detailDtos = LibraryMapper.mapBookDetailsEntityToDto(entity);
 
         assertEquals(entity.get(0).getLanguage(), detailDtos.get(0).getLanguage());
         assertEquals(entity.get(0).getFormat(), detailDtos.get(0).getFormat());
@@ -60,15 +64,17 @@ public class LibraryMapperTest {
 
     @Test
     public void testMapAuthorBooksEntityToDto() throws Exception {
-        List<BookAuthorEntity> entity = new ArrayList<>();
-        BookAuthorEntity author = new BookAuthorEntity();
+        List<AuthorEntity> entity = new ArrayList<>();
+        AuthorEntity author = new AuthorEntity();
         BookEntity book = new BookEntity();
         book.setId(12345);
+        book.setIsbn("1123ACD433");
+        book.setTitle("Title");
         author.setBook(book);
         entity.add(author);
-        List<BookDto> bookDtos = LibraryMapper.mapAuthorBooksEntityToDto(entity);
+        List<Book> bookDtos = LibraryMapper.mapAuthorBooksEntityToDto(entity);
 
-        assertEquals(book.getId().toString(), bookDtos.get(0).getBookId().toString());
+        assertEquals(book.getId().toString(), bookDtos.get(0).getId().toString());
     }
 
     @Test
@@ -79,9 +85,9 @@ public class LibraryMapperTest {
         entity.setIsbn("Isbn");
         entity.setDetailEntities(new HashSet<>());
         entity.setAuthorEntities(new HashSet<>());
-        BookDto dto = LibraryMapper.mapBookEntityToDto(entity);
+        Book dto = LibraryMapper.mapBookEntityToDto(entity);
 
-        assertEquals(entity.getId().toString(), dto.getBookId().toString());
+        assertEquals(entity.getId().toString(), dto.getId().toString());
         assertEquals(entity.getIsbn(), dto.getIsbn());
         assertEquals(entity.getTitle(), dto.getTitle());
     }

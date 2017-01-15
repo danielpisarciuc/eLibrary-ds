@@ -1,6 +1,6 @@
 package com.elibrary.server.controller;
 
-import com.elibrary.common.dto.BookDto;
+import com.elibrary.common.dto.Book;
 import com.elibrary.server.service.LibraryService;
 import com.elibrary.server.utils.LibraryException;
 import com.elibrary.server.utils.LibraryMessage;
@@ -45,7 +45,7 @@ public class LibraryBookControllerTest extends JerseyTest {
     @Test
     @Ignore
     public void testUpdateBookNotModified() throws Exception {
-        Response response = target("book/update/1").request().put(Entity.entity(new BookDto(), MediaType.APPLICATION_JSON_TYPE));
+        Response response = target("book/update/1").request().put(Entity.entity(new Book(), MediaType.APPLICATION_JSON_TYPE));
 
         assertEquals((Response.Status.NOT_MODIFIED).getStatusCode(), response.getStatus());
         assertEquals(MediaType.TEXT_PLAIN, String.valueOf(response.getMediaType()));

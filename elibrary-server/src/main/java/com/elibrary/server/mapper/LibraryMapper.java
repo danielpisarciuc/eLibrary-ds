@@ -1,10 +1,10 @@
 package com.elibrary.server.mapper;
 
-import com.elibrary.common.dto.BookAuthorDto;
-import com.elibrary.common.dto.BookDetailDto;
-import com.elibrary.common.dto.BookDto;
+import com.elibrary.common.dto.Author;
+import com.elibrary.common.dto.Book;
+import com.elibrary.common.dto.BookDetail;
 import com.elibrary.common.utils.LibraryUtil;
-import com.elibrary.server.dao.entity.BookAuthorEntity;
+import com.elibrary.server.dao.entity.AuthorEntity;
 import com.elibrary.server.dao.entity.BookDetailEntity;
 import com.elibrary.server.dao.entity.BookEntity;
 
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class LibraryMapper {
 
-    public static BookEntity mapBookDtoToEntity(BookDto bookDto) {
+    public static BookEntity mapBookDtoToEntity(Book bookDto) {
         BookEntity entity = new BookEntity();
         entity.setIsbn(bookDto.getIsbn());
         entity.setTitle(bookDto.getTitle());
@@ -25,11 +25,11 @@ public class LibraryMapper {
                 .stream()
                 .filter(dto -> dto.getFirstName() != null && dto.getLastName() != null)
                 .forEach(dto -> {
-                    BookAuthorEntity bookAuthorEntity = new BookAuthorEntity();
-
+                    AuthorEntity bookAuthorEntity = new AuthorEntity();
                     bookAuthorEntity.setFirstName(dto.getFirstName());
                     bookAuthorEntity.setLastName(dto.getLastName());
                     bookAuthorEntity.setBook(entity);
+
                     entity.getAuthorEntities().add(bookAuthorEntity);
                 });
 
@@ -51,84 +51,80 @@ public class LibraryMapper {
         return entity;
     }
 
-    public static BookDto mapBookEntityToDto(BookEntity entity) {
-        BookDto dto = new BookDto();
-        dto.setBookId(Long.valueOf(entity.getId()));
-        dto.setIsbn(entity.getIsbn());
-        dto.setTitle(entity.getTitle());
-        dto.setBookAuthors(mapBookAuthors(entity));
-
-        List<BookDetailDto> bookDetails = new ArrayList<>();
-        entity.getDetailEntities()
-                .stream()
-                .forEach(detailEntity -> {
-                    detailEntityToDto(bookDetails, detailEntity);
-                });
-
-        dto.setBookDetails(bookDetails);
-        return dto;
+    public static Book mapBookEntityToDto(BookEntity entity) {
+        return Book.builder()
+                .id(Long.valueOf(entity.getId()))
+                .isbn(entity.getIsbn())
+                .title(entity.getTitle())
+                .bookAuthors(mapBookAuthors(entity))
+                .bookDetails(mapBookDetails(entity))
+                .build();
     }
 
-    public static List<BookDetailDto> mapBookDetailsEntityToDto(List<BookDetailEntity> detailEntities) {
-        List<BookDetailDto> bookDetails = new ArrayList<>();
-        detailEntities.stream().forEach(detailEntity -> {
-            detailEntityToDto(bookDetails, detailEntity);
-        });
+    private static List<BookDetail> mapBookDetails(BookEntity entity) {
+        List<BookDetail> bookDetails = new ArrayList<>();
+        entity.getDetailEntities()
+                .stream()
+                .forEach(detailEntity -> detailEntityToDto(bookDetails, detailEntity));
 
         return bookDetails;
     }
 
-    private static void detailEntityToDto(List<BookDetailDto> bookDetails, BookDetailEntity detailEntity) {
-        BookDetailDto bookDetailDto = new BookDetailDto();
-        bookDetailDto.setFormat(detailEntity.getFormat());
-        bookDetailDto.setLanguage(detailEntity.getLanguage());
-        bookDetailDto.setPublicationDate(detailEntity.getPublicationDate());
-        bookDetailDto.setDescription(detailEntity.getDescription());
-        bookDetailDto.setSubject(detailEntity.getSubject());
-        bookDetails.add(bookDetailDto);
+    public static List<BookDetail> mapBookDetailsEntityToDto(List<BookDetailEntity> detailEntities) {
+        List<BookDetail> bookDetails = new ArrayList<>();
+        detailEntities.stream().forEach(detailEntity -> detailEntityToDto(bookDetails, detailEntity));
+
+        return bookDetails;
     }
 
-    public static List<BookDto> mapAuthorBooksEntityToDto(List<BookAuthorEntity> authorBooks) {
-        List<BookDto> bookDtos = new ArrayList<>();
-        authorBooks.stream().forEach(author -> {
-            BookDto dto = new BookDto();
-            dto.setBookId(Long.valueOf(author.getBook().getId()));
-            dto.setTitle(author.getBook().getTitle());
-            dto.setIsbn(author.getBook().getIsbn());
-            bookDtos.add(dto);
-        });
+    private static void detailEntityToDto(List<BookDetail> bookDetails, BookDetailEntity entity) {
+        BookDetail bookDetail = BookDetail.builder()
+                .format(entity.getFormat())
+                .language(entity.getLanguage())
+                .publicationDate(entity.getPublicationDate())
+                .description(entity.getDescription())
+                .subject(entity.getSubject())
+                .build();
+
+        bookDetails.add(bookDetail);
+    }
+
+    public static List<Book> mapAuthorBooksEntityToDto(List<AuthorEntity> authorBooks) {
+        List<Book> bookDtos = new ArrayList<>();
+        authorBooks.stream()
+                .forEach(author -> bookDtos.add(
+                        Book.builder()
+                                .id(Long.valueOf(author.getBook().getId()))
+                                .title(author.getBook().getTitle())
+                                .isbn(author.getBook().getIsbn())
+                                .build()));
 
         return bookDtos;
     }
 
-    public static List<BookDto> mapBooksEntityToDto(List<BookEntity> bookEntities) {
-        List<BookDto> bookDtos = new ArrayList<>();
-        bookEntities.stream().forEach(book -> {
-            BookDto dto = new BookDto();
-            dto.setBookId(book.getId().longValue());
-            dto.setIsbn(book.getIsbn());
-            dto.setTitle(book.getTitle());
+    public static List<Book> mapBooksEntityToDto(List<BookEntity> bookEntities) {
+        List<Book> bookDtos = new ArrayList<>();
 
-            List<BookAuthorDto> mapBookAuthors = mapBookAuthors(book);
-
-            dto.setBookAuthors(mapBookAuthors);
-            bookDtos.add(dto);
-        });
+        bookEntities.stream().forEach(book -> bookDtos.add(
+                Book.builder()
+                        .id(book.getId().longValue())
+                        .title(book.getTitle())
+                        .isbn(book.getIsbn())
+                        .bookAuthors(mapBookAuthors(book))
+                        .build()));
 
         return bookDtos;
     }
 
-    private static List<BookAuthorDto> mapBookAuthors(BookEntity bookEntity) {
-        List<BookAuthorDto> bookAuthors = new ArrayList<>();
+    private static List<Author> mapBookAuthors(BookEntity bookEntity) {
+        List<Author> bookAuthors = new ArrayList<>();
+
         bookEntity.getAuthorEntities()
                 .stream()
-                .forEach(authorEntity -> {
-                    BookAuthorDto bookAuthorDto = new BookAuthorDto();
-
-                    bookAuthorDto.setFirstName(authorEntity.getFirstName());
-                    bookAuthorDto.setLastName(authorEntity.getLastName());
-                    bookAuthors.add(bookAuthorDto);
-                });
+                .forEach(authorEntity -> bookAuthors.add(Author.builder()
+                        .firstName(authorEntity.getFirstName())
+                        .lastName(authorEntity.getLastName())
+                        .build()));
 
         return bookAuthors;
     }

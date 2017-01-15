@@ -10,16 +10,16 @@ public interface LibraryBookDao {
     /**
      * Persist BookEntity into database
      *
-     * @param bookEntity
+     * @param entity object
      * @throws LibraryException;
      */
-    void addBook(BookEntity bookEntity) throws LibraryException;
+    void addBook(BookEntity entity) throws LibraryException;
 
 
     /**
      * Delete book from database based on primary key.
      *
-     * @param bookId
+     * @param bookId the id of the book
      * @throws LibraryException;
      */
     void deleteBook(Long bookId) throws LibraryException;
@@ -27,16 +27,16 @@ public interface LibraryBookDao {
     /**
      * Update book based on primary key bookId.
      *
-     * @param bookId
-     * @param bookEntity
+     * @param bookId the book id
+     * @param entity object
      * @throws LibraryException;
      */
-    void updateBook(Long bookId, BookEntity bookEntity) throws LibraryException;
+    void updateBook(Long bookId, BookEntity entity) throws LibraryException;
 
     /**
      * Retrieves book from database
      *
-     * @param bookId
+     * @param bookId the book id
      * @return a book entity object
      * @throws LibraryException;
      */
@@ -45,7 +45,7 @@ public interface LibraryBookDao {
     /**
      * Retrieve book details informations
      *
-     * @param bookId
+     * @param bookId the book id
      * @return a list of book details
      * @throws LibraryException;
      */
@@ -54,7 +54,7 @@ public interface LibraryBookDao {
     /**
      * Retrieve author books based on authorName (firstName + lastName)
      *
-     * @param authorName
+     * @param authorName the book author name
      * @return a list of books
      * @throws LibraryException
      */
@@ -63,8 +63,8 @@ public interface LibraryBookDao {
     /**
      * Search books from database based on ISBN/Title/Author Name
      *
-     * @param searchTerm
-     * @param size
+     * @param searchTerm the search value
+     * @param size       the size of the array list
      * @return a list of books
      * @throws LibraryException
      */

@@ -24,7 +24,7 @@ public class BookEntity implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "book")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
-    private Set<BookAuthorEntity> authorEntities = new HashSet<>();
+    private Set<AuthorEntity> authorEntities = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
@@ -54,11 +54,11 @@ public class BookEntity implements Serializable {
         this.title = title;
     }
 
-    public Set<BookAuthorEntity> getAuthorEntities() {
+    public Set<AuthorEntity> getAuthorEntities() {
         return authorEntities;
     }
 
-    public void setAuthorEntities(Set<BookAuthorEntity> authorEntities) {
+    public void setAuthorEntities(Set<AuthorEntity> authorEntities) {
         this.authorEntities = authorEntities;
     }
 

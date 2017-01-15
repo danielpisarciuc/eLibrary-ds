@@ -4,21 +4,19 @@ package com.elibrary.server.dao.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name = "BookAuthorEntity")
+@Entity(name = "AuthorEntity")
 @Table(name = "BOOK_AUTHOR")
 @NamedQueries({
         @NamedQuery(
-                name = "authorBooks",
-                query = "select author from BookAuthorEntity author " +
+                name = "books",
+                query = "select author from AuthorEntity author " +
                         "left join fetch author.book where upper(CONCAT(author.firstName, ' ', author.lastName)) = upper(:authorName)"
         ),
 })
-public class BookAuthorEntity implements Serializable {
+public class AuthorEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-
-    public static final String AUTHOR_BOOKS = "authorBooks";
-
+    public static final String AUTHOR_BOOKS = "books";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

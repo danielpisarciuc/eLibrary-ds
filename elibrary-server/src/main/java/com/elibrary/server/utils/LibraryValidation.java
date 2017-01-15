@@ -1,8 +1,8 @@
 package com.elibrary.server.utils;
 
-import com.elibrary.common.dto.BookAuthorDto;
-import com.elibrary.common.dto.BookDetailDto;
-import com.elibrary.common.dto.BookDto;
+import com.elibrary.common.dto.Author;
+import com.elibrary.common.dto.Book;
+import com.elibrary.common.dto.BookDetail;
 import com.elibrary.common.utils.LibraryUtil;
 
 /**
@@ -10,7 +10,7 @@ import com.elibrary.common.utils.LibraryUtil;
  */
 public class LibraryValidation {
 
-    public static boolean isBookValid(BookDto bookDto) {
+    public static boolean isBookValid(Book bookDto) {
         if (bookDto == null) {
             return false;
         }
@@ -19,13 +19,13 @@ public class LibraryValidation {
             return false;
         }
 
-        for (BookAuthorDto dto : bookDto.getBookAuthors()) {
+        for (Author dto : bookDto.getBookAuthors()) {
             if (LibraryUtil.isNullOrEmpty(dto.getFirstName(), dto.getLastName())) {
                 return false;
             }
         }
 
-        for (BookDetailDto dto : bookDto.getBookDetails()) {
+        for (BookDetail dto : bookDto.getBookDetails()) {
             if (LibraryUtil.isNullOrEmpty(dto.getLanguage(), dto.getSubject(), dto.getFormat(), dto.getDescription()) || dto.getPublicationDate() == null) {
                 return false;
             }

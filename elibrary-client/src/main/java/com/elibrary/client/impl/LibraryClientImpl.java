@@ -1,7 +1,7 @@
 package com.elibrary.client.impl;
 
 import com.elibrary.client.LibraryClient;
-import com.elibrary.common.dto.BookDto;
+import com.elibrary.common.dto.Book;
 import org.glassfish.jersey.client.ClientConfig;
 
 import javax.ws.rs.client.Client;
@@ -57,7 +57,7 @@ public class LibraryClientImpl implements LibraryClient {
     }
 
     @Override
-    public Response createBook(BookDto bookDto) {
+    public Response createBook(Book bookDto) {
         client = ClientBuilder.newClient(new ClientConfig().register(Response.class));
         WebTarget target = client.target(this.createBook);
         Response response = target.request().post(Entity.entity(bookDto, MediaType.APPLICATION_JSON_TYPE));
@@ -75,7 +75,7 @@ public class LibraryClientImpl implements LibraryClient {
     }
 
     @Override
-    public Response updateBook(Long bookId, BookDto bookDto) {
+    public Response updateBook(Long bookId, Book bookDto) {
         client = ClientBuilder.newClient(new ClientConfig().register(Response.class));
         WebTarget target = client.target(this.updateBook + bookId);
         Response response = target.request().put(Entity.entity(bookDto, MediaType.APPLICATION_JSON_TYPE));

@@ -1,9 +1,9 @@
 package com.elibrary.server.service.impl;
 
-import com.elibrary.common.dto.BookDetailDto;
-import com.elibrary.common.dto.BookDto;
+import com.elibrary.common.dto.BookDetail;
+import com.elibrary.common.dto.Book;
 import com.elibrary.server.dao.LibraryBookDao;
-import com.elibrary.server.dao.entity.BookAuthorEntity;
+import com.elibrary.server.dao.entity.AuthorEntity;
 import com.elibrary.server.dao.entity.BookDetailEntity;
 import com.elibrary.server.dao.entity.BookEntity;
 import com.elibrary.server.utils.LibraryException;
@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class LibraryServiceImplTest {
         expectedException.expect(LibraryException.class);
         expectedException.expectMessage(LibraryMessage.NO_BOOK_ID.getMessage());
 
-        libraryService.updateBook(null, new BookDto());
+        libraryService.updateBook(null, new Book());
     }
 
     @Test
@@ -109,7 +110,7 @@ public class LibraryServiceImplTest {
         expected.setTitle("Title");
         when(libraryBookDao.retrieveBookById(BOOK_ID)).thenReturn(expected);
 
-        BookDto actual = libraryService.fetchBookById(BOOK_ID);
+        Book actual = libraryService.fetchBookById(BOOK_ID);
 
         verify(libraryBookDao).retrieveBookById(BOOK_ID);
 
@@ -125,11 +126,12 @@ public class LibraryServiceImplTest {
         detail.setSubject("Subject");
         detail.setDescription("Description");
         detail.setLanguage("Language");
+        detail.setPublicationDate(new Date());
         expected.add(detail);
 
         when(libraryBookDao.retrieveBookDetails(BOOK_ID)).thenReturn(expected);
 
-        List<BookDetailDto> actual = libraryService.fetchBookDetails(BOOK_ID);
+        List<BookDetail> actual = libraryService.fetchBookDetails(BOOK_ID);
 
         verify(libraryBookDao).retrieveBookDetails(BOOK_ID);
 
@@ -142,8 +144,8 @@ public class LibraryServiceImplTest {
     @Test
     public void testFetchAuthorBooks() throws LibraryException {
         String authorName = "authorName";
-        List<BookAuthorEntity> expected = new ArrayList<>();
-        BookAuthorEntity author = new BookAuthorEntity();
+        List<AuthorEntity> expected = new ArrayList<>();
+        AuthorEntity author = new AuthorEntity();
         BookEntity book = new BookEntity();
         book.setId(BOOK_ID.intValue());
         book.setTitle("Title");
@@ -156,7 +158,7 @@ public class LibraryServiceImplTest {
 
         when(libraryBookDao.retrieveAuthorBooks(authorName)).thenReturn(expected);
 
-        List<BookDto> actual = libraryService.fetchAuthorBooks(authorName);
+        List<Book> actual = libraryService.fetchAuthorBooks(authorName);
 
         verify(libraryBookDao).retrieveAuthorBooks(authorName);
 
@@ -180,10 +182,10 @@ public class LibraryServiceImplTest {
 
         when(libraryBookDao.searchBook(searchTerm, size)).thenReturn(expected);
 
-        List<BookDto> actual = libraryService.searchBook(searchTerm, size);
+        List<Book> actual = libraryService.searchBook(searchTerm, size);
 
         verify(libraryBookDao).searchBook(searchTerm, size);
-        assertEquals(expected.get(0).getId().toString(), actual.get(0).getBookId().toString());
+        assertEquals(expected.get(0).getId().toString(), actual.get(0).getId().toString());
         assertEquals(expected.get(0).getIsbn(), actual.get(0).getIsbn());
         assertEquals(expected.get(0).getTitle(), actual.get(0).getTitle());
     }

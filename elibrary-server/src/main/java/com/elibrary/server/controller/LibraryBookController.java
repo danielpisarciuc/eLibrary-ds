@@ -1,6 +1,6 @@
 package com.elibrary.server.controller;
 
-import com.elibrary.common.dto.BookDto;
+import com.elibrary.common.dto.Book;
 import com.elibrary.server.service.LibraryService;
 import com.elibrary.server.utils.LibraryException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ public class LibraryBookController {
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createBook(BookDto bookDto) {
+    public Response createBook(Book book) {
         try {
-            libraryService.createBook(bookDto);
+            libraryService.createBook(book);
         } catch (LibraryException exception) {
             return Response.status(Response.Status.NOT_MODIFIED).entity(exception.getMessage()).type(MediaType.TEXT_PLAIN).build();
         }
@@ -48,9 +48,9 @@ public class LibraryBookController {
     @Path("/update/{bookId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateBook(@PathParam("bookId") Long bookId, BookDto bookDto) {
+    public Response updateBook(@PathParam("bookId") Long bookId, Book book) {
         try {
-            libraryService.updateBook(bookId, bookDto);
+            libraryService.updateBook(bookId, book);
         } catch (LibraryException exception) {
             return Response.status(Response.Status.NOT_MODIFIED).entity(exception.getMessage()).type(MediaType.TEXT_PLAIN).build();
         }

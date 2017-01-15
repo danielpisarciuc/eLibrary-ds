@@ -1,7 +1,7 @@
 package com.elibrary.server.dao.impl;
 
 import com.elibrary.server.dao.LibraryBookDao;
-import com.elibrary.server.dao.entity.BookAuthorEntity;
+import com.elibrary.server.dao.entity.AuthorEntity;
 import com.elibrary.server.dao.entity.BookDetailEntity;
 import com.elibrary.server.dao.entity.BookEntity;
 import com.elibrary.server.utils.LibraryException;
@@ -38,12 +38,12 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
 
     @Override
     public void updateBook(Long bookId, BookEntity bookEntity) throws LibraryException {
-        BookEntity entity = (BookEntity) getSession().get(BookEntity.class, bookId.intValue());
+        int idOfTheBook = bookId.intValue();
+        BookEntity entity = (BookEntity) getSession().get(BookEntity.class, idOfTheBook);
 
-        if (entity == null && entity.getId().equals(bookId.intValue())) {
+        if (entity == null || !entity.getId().equals(idOfTheBook)) {
             throw new LibraryException(LibraryMessage.NO_RECORDS_FOUND);
         }
-
         update(bookEntity);
     }
 
@@ -75,7 +75,7 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
 
     @Override
     public List retrieveAuthorBooks(String authorName) throws LibraryException {
-        Query namedQuery = getSession().getNamedQuery(BookAuthorEntity.AUTHOR_BOOKS);
+        Query namedQuery = getSession().getNamedQuery(AuthorEntity.AUTHOR_BOOKS);
         namedQuery.setParameter("authorName", authorName);
 
         List bookDetails = namedQuery.list();
