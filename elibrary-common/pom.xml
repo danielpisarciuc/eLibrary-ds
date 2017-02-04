@@ -3,6 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>elibrary-ds</artifactId>
+        <groupId>elibrary-ds</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>elibrary-common</artifactId>
+    <packaging>jar</packaging>
+
     <dependencies>
         <!--JUnit-->
         <dependency>
@@ -26,6 +36,7 @@
             <version>2.5.4</version>
         </dependency>
 
+        <!--Lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -34,14 +45,4 @@
         </dependency>
 
     </dependencies>
-
-    <parent>
-        <artifactId>elibrary-ds</artifactId>
-        <groupId>elibrary-ds</groupId>
-        <version>1.0</version>
-    </parent>
-
-    <artifactId>elibrary-common</artifactId>
-    <packaging>jar</packaging>
-
 </project>
