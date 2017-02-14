@@ -90,9 +90,9 @@ public class LibraryBookDaoImpl extends AbstractDao implements LibraryBookDao {
     public List searchBook(String searchTerm, Long size) throws LibraryException {
         Disjunction disCriteria = Restrictions.disjunction();
         disCriteria.add(Restrictions.like("isbn", searchTerm, MatchMode.START));
-        disCriteria.add(Restrictions.like("title", searchTerm, MatchMode.ANYWHERE).ignoreCase());
-        disCriteria.add(Restrictions.like("author.firstName", searchTerm, MatchMode.ANYWHERE).ignoreCase());
-        disCriteria.add(Restrictions.like("author.lastName", searchTerm, MatchMode.ANYWHERE).ignoreCase());
+        disCriteria.add(Restrictions.like("title", searchTerm, MatchMode.START).ignoreCase());
+        disCriteria.add(Restrictions.like("author.firstName", searchTerm, MatchMode.START).ignoreCase());
+        disCriteria.add(Restrictions.like("author.lastName", searchTerm, MatchMode.START).ignoreCase());
 
         Criteria criteria = getSession().createCriteria(BookEntity.class);
         criteria.createAlias("authorEntities", "author");
